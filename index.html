@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Guide to Figma Handoff</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: The application is designed as a single-page, vertical narrative that guides the user through the developer handoff process. This structure was chosen over a dashboard because the source material is a linear guide, not a dataset. The flow progresses from high-level concepts (the 'DONE READY' workflow) to a hands-on, interactive simulation of the Figma interface. This interactive core allows users to learn by doing, which is more effective for a technical audience than passively reading. The structure concludes with practical outputs (a copyable code snippet) and crucial best practices, reinforcing the learning journey. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: The core step-by-step process of using the Inspector. -> Goal: Engagement/Teach -> Viz/Method: Interactive Figma UI Simulation. -> Interaction: User clicks a simulated button to reveal a simulated Inspector panel with code. -> Justification: Transforms a static list into a memorable, hands-on experience, improving comprehension and retention for developers. -> Library/Method: Vanilla JavaScript and HTML/CSS with Tailwind.
+        - Report Info: Example CSS code snippet. -> Goal: Inform/Provide Utility -> Viz/Method: Styled code block. -> Interaction: A 'Copy Code' button. -> Justification: Provides immediate utility and mimics a real-world developer tool, making the guide more practical. -> Library/Method: Vanilla JavaScript.
+        - Report Info: The overall Figma UI context. -> Goal: Organize/Inform -> Viz/Method: A simplified visual mock of the Figma interface. -> Interaction: Static. -> Justification: Provides necessary context for the interactive simulation without using static images, ensuring a lightweight and scalable presentation. -> Library/Method: HTML/CSS with Tailwind.
+        - Report Info: The 'Important Note'. -> Goal: Emphasize -> Viz/Method: A visually distinct callout box. -> Interaction: Static. -> Justification: Draws the user's attention to a critical best practice that could otherwise be overlooked. -> Library/Method: HTML/CSS with Tailwind.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F5F5F4; /* stone-100 */
+            color: #292524; /* stone-800 */
+        }
+        .section-card {
+            background-color: #FFFFFF;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .code-block {
+            background-color: #1c1917; /* stone-900 */
+            color: #e7e5e4; /* stone-200 */
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            font-family: monospace;
+            white-space: pre-wrap;
+            position: relative;
+        }
+        .code-block .token-selector { color: #f87171; } /* red-400 */
+        .code-block .token-property { color: #60a5fa; } /* blue-400 */
+        .code-block .token-value { color: #a78bfa; } /* violet-400 */
+        .code-block .token-comment { color: #9ca3af; } /* gray-400 */
+        .copy-button {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background-color: #57534e; /* stone-600 */
+            color: #fafaf9; /* stone-50 */
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .copy-button:hover {
+            background-color: #78716c; /* stone-500 */
+        }
+        .sim-inspector {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-stone-900">A Developer's Guide to Figma Handoff</h1>
+            <p class="mt-4 text-lg text-stone-600">An interactive walkthrough for translating design into code.</p>
+        </header>
+
+        <section id="workflow" class="section-card">
+            <div class="flex items-start">
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center">
+                        <span class="text-2xl text-emerald-600">✓</span>
+                    </div>
+                </div>
+                <div class="ml-4">
+                    <h2 class="text-2xl font-bold text-stone-900">The `DONE READY` Workflow</h2>
+                    <p class="mt-2 text-stone-600">In any product development lifecycle, the `DONE READY` status in Figma signals the official handoff from design to engineering. It means a component, screen, or feature has been finalized and is ready for you to build. Your first step is to look for sections, frames, or pages marked with this status in the left-hand Layers panel.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="interactive-demo" class="section-card">
+            <h2 class="text-2xl font-bold text-stone-900 mb-2">Interactive Demo: The Inspector Panel</h2>
+            <p class="text-stone-600 mb-8">The Inspector panel is your primary tool for extracting design specifications. Instead of just reading about it, let's try it. Follow the steps below in this simulated Figma environment.</p>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="md:col-span-1">
+                    <ol class="list-decimal list-inside space-y-4 text-stone-700">
+                        <li>
+                            <span class="font-semibold">Select the Element:</span>
+                            <br>Click the "Sign Up" button on the canvas to the right.
+                        </li>
+                        <li>
+                            <span class="font-semibold">View the `Code` Section:</span>
+                            <br>Notice how the Inspector panel appears with the code.
+                        </li>
+                         <li>
+                            <span class="font-semibold">Choose Your Language:</span>
+                            <br>The dropdown allows you to switch between CSS, iOS, and Android code.
+                        </li>
+                        <li>
+                            <span class="font-semibold">Copy the Snippet:</span>
+                            <br>You can then copy the auto-generated styles to use in your project.
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="md:col-span-2 bg-stone-200 rounded-lg p-4 lg:p-6 flex items-center justify-center min-h-[300px]">
+                    <!-- Simulated Figma Canvas -->
+                    <div id="sim-canvas" class="w-full h-full flex items-center justify-center">
+                        <button id="sim-button" class="bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors cursor-pointer text-lg">
+                            Sign Up
+                        </button>
+                    </div>
+                </div>
+            </div>
+             <!-- Simulated Inspector Panel -->
+            <div id="sim-inspector" class="mt-8 bg-white border border-stone-200 rounded-lg p-6 opacity-0 transform -translate-y-4 sim-inspector">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="flex space-x-4 border-b border-stone-200">
+                         <span class="text-sm font-medium text-stone-500 pb-2">Design</span>
+                         <span class="text-sm font-medium text-blue-600 border-b-2 border-blue-600 pb-2">Code</span>
+                         <span class="text-sm font-medium text-stone-500 pb-2">Prototype</span>
+                    </div>
+                    <div class="relative">
+                        <select class="text-sm border border-stone-300 rounded px-2 py-1">
+                            <option>CSS</option>
+                            <option>iOS (SwiftUI)</option>
+                            <option>Android (Compose)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="code-block">
+                    <button id="copy-button" class="copy-button">Copy</button>
+                    <pre><code id="code-content"><span class="token-selector">.button</span> {
+  <span class="token-property">display</span>: <span class="token-value">flex</span>;
+  <span class="token-property">flex-direction</span>: <span class="token-value">row</span>;
+  <span class="token-property">align-items</span>: <span class="token-value">center</span>;
+  <span class="token-property">justify-content</span>: <span class="token-value">center</span>;
+  <span class="token-property">padding</span>: <span class="token-value">12px 24px</span>;
+  <span class="token-property">gap</span>: <span class="token-value">8px</span>;
+
+  <span class="token-property">width</span>: <span class="token-value">150px</span>;
+  <span class="token-property">height</span>: <span class="token-value">48px</span>;
+
+  <span class="token-property">background</span>: <span class="token-value">#2563eb</span>; <span class="token-comment">/* blue-600 */</span>
+  <span class="token-property">border-radius</span>: <span class="token-value">8px</span>;
+  <span class="token-property">box-shadow</span>: <span class="token-value">0px 4px 6px rgba(0, 0, 0, 0.1)</span>;
+  <span class="token-property">font-family</span>: <span class="token-value">'Inter'</span>;
+  <span class="token-property">font-style</span>: <span class="token-value">normal</span>;
+  <span class="token-property">font-weight</span>: <span class="token-value">500</span>;
+  <span class="token-property">font-size</span>: <span class="token-value">16px</span>;
+  <span class="token-property">line-height</span>: <span class="token-value">24px</span>;
+  <span class="token-property">color</span>: <span class="token-value">#ffffff</span>;
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="best-practices" class="section-card bg-amber-50 border-l-4 border-amber-400">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <span class="text-2xl text-amber-500">💡</span>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-lg font-semibold text-amber-900">Important Note: Use as a Guide</h3>
+                    <div class="mt-2 text-sm text-amber-800">
+                        <p>The generated code snippets are a fantastic starting point, but they are not a substitute for semantic, well-structured code. They often contain absolute pixel values or verbose properties. It is a best practice to use them as a guide, translating the values into your own project's design tokens (e.g., `var(--color-primary-600)`) and semantic class names.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const simButton = document.getElementById('sim-button');
+            const simInspector = document.getElementById('sim-inspector');
+            const copyButton = document.getElementById('copy-button');
+            const codeContent = document.getElementById('code-content');
+
+            simButton.addEventListener('click', () => {
+                simInspector.style.opacity = '1';
+                simInspector.style.transform = 'translateY(0)';
+            });
+
+            copyButton.addEventListener('click', () => {
+                const textToCopy = codeContent.innerText;
+                
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        copyButton.textContent = 'Copied!';
+                        setTimeout(() => {
+                            copyButton.textContent = 'Copy';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy text: ', err);
+                        alert('Failed to copy text.');
+                    });
+                } else {
+                    // Fallback for older browsers
+                    const textArea = document.createElement('textarea');
+                    textArea.value = textToCopy;
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        copyButton.textContent = 'Copied!';
+                        setTimeout(() => {
+                            copyButton.textContent = 'Copy';
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Fallback failed to copy text: ', err);
+                        alert('Failed to copy text.');
+                    }
+                    document.body.removeChild(textArea);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
